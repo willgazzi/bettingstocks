@@ -1,0 +1,66 @@
+sports-betting-site/
+|-- index.html
+|-- style.css
+|-- script.js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Betting Site</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Sports Betting Central</h1>
+    </header>
+    <main>
+        <section id="games">
+            <h2>Available Games</h2>
+            <!-- Games will be populated here -->
+        </section>
+        <section id="betting">
+            <h2>Place Your Bet</h2>
+            <form id="betForm">
+                <label for="game">Select Game:</label>
+                <select id="game" required></select>
+                <label for="amount">Bet Amount:</label>
+                <input type="number" id="amount" required>
+                <button type="submit">Place Bet</button>
+            </form>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+}
+header, main {
+    text-align: center;
+    padding: 10px;
+}
+#games {
+    margin-bottom: 20px;
+}
+document.addEventListener('DOMContentLoaded', function () {
+    const gamesList = [
+        { id: 1, name: 'Football: Team A vs Team B' },
+        { id: 2, name: 'Basketball: Team X vs Team Y' }
+    ];
+
+    const gameSelect = document.getElementById('game');
+    gamesList.forEach(game => {
+        let option = document.createElement('option');
+        option.value = game.id;
+        option.textContent = game.name;
+        gameSelect.appendChild(option);
+    });
+
+    document.getElementById('betForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const selectedGame = gameSelect.value;
+        const betAmount = document.getElementById('amount').value;
+        alert(`Your bet of $${betAmount} on ${gamesList.find(g => g.id == selectedGame).name} has been placed!`);
+    });
+});
